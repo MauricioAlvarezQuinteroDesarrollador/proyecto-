@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+    <title></title>
 </head>
 <body>
-	<input type="text" id="numero_1" required  placeholder="ingresar numero">
-	<input type="text" id="numero_2" required placeholder="ingresar numero">
-	<input type="button" onclick="sumarNumeros()" value="sumar">
-	
-	<div>el resultado es: <span id="resultado"></span></div>
+    <input type="text" id="numero_1" required  placeholder="ingresar numero">
+    <input type="text" id="numero_2" required placeholder="ingresar numero">
+    <input type="button" onclick="sumarNumeros()" value="sumar">
+
+    <div>el resultado es: <span id="resultado"></span></div>
 
 </body>
 
@@ -17,13 +17,14 @@ function sumarNumeros(){
 
  var text1=document.getElementById('numero_1').value;
  var text2=document.getElementById('numero_2').value; 
- var numero1=texto_a_numero(text1);
- var numero2=texto_a_numero(text2);
+
+ var numero1=texto_a_numero(text1.trim());
+ var numero2=texto_a_numero(text2.trim());
  var total;
  if(numero1==-1 || numero2==-1){
- 	total="Zero";
+    total="Zero";
  }else{
- 	total = numero1+numero2; 	
+    total = numero1+numero2;    
  }
  document.getElementById('resultado').innerHTML  = total;
 }
@@ -72,45 +73,48 @@ var num_grande = {
     'decillion':    1000000000000000000000000000000000,
 };
 
- var n, g,error;
+ var n, g,error,array;
 
 
 function texto_a_numero(s) {
-	error=false;
-    var  array = s.toString().split(/[\s]+/);
+    error=false;
+    
+    array = s.toString().split(/[\s]+/);
     //a = s.toString().split("");  
     n = 0;
     g = 0;
     array.forEach(posicion);
     if(!error)
-    	return n + g;
+        return n + g;
     else
-    	return -1;
+        return -1;
 }
 
-function posicion(dato) {
-	dato=dato.toLowerCase();
-	if(dato!="and"){	 
-	    var x = num_peq[dato];
-	    if (x != null) {
-	        g = g + x;
-	    }
-	    else if (dato == "hundred") {
-	        g = g * 100;        
-	    }
-	    else {    	
-	        x = num_grande[dato];
-	        if (x != null) {
-	            n = n + g * x;            
-	            g = 0;
-	        }
-	        else { 
-	        	error=true;
-	            console.log("error: "+dato); 
-	        }
-	    }
+function posicion(dato) {    
+    dato=dato.toLowerCase();
+    if(dato!="and"){     
+        var x = num_peq[dato];
+        if (x != null) {
+            g = g + x;
+        }
+        else if (dato == "hundred") {
+            g = g * 100;        
+        }
+        else {      
+            x = num_grande[dato];
+            if (x != null) {
+                n = n + g * x;            
+                g = 0;
+            }
+            else { 
+                error=true;
+                console.log("error: "+dato); 
+            }
+        }
+    }else if(array.length != 4){
+        error=true;
+        console.log("error: "+dato);
     }
 }
-
 </script>
 </html>
